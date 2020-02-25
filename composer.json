@@ -1,7 +1,7 @@
 {
     "name": "friendsofsymfony/user-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony FOSUserBundle",
+    "description": "Symfony FOSUserBundle2",
     "keywords": [
         "User management"
     ],
