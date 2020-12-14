@@ -17,6 +17,8 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManager as BaseUserManager;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 class UserManager extends BaseUserManager
 {
@@ -35,11 +37,11 @@ class UserManager extends BaseUserManager
      *
      * @param string $class
      */
-    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, $class)
+    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ManagerRegistry $mr, $class)
     {
         parent::__construct($passwordUpdater, $canonicalFieldsUpdater);
 
-        $this->objectManager = $om;
+        $this->objectManager = $mr->getManager();
         $this->class = $class;
     }
 

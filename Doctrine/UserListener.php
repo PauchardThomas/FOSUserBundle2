@@ -12,10 +12,9 @@
 namespace FOS\UserBundle\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
@@ -86,15 +85,8 @@ class UserListener implements EventSubscriber
     private function recomputeChangeSet(ObjectManager $om, UserInterface $user)
     {
         $meta = $om->getClassMetadata(get_class($user));
-
         if ($om instanceof EntityManager) {
             $om->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $user);
-
-            return;
-        }
-
-        if ($om instanceof DocumentManager) {
-            $om->getUnitOfWork()->recomputeSingleDocumentChangeSet($meta, $user);
         }
     }
 }
